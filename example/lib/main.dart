@@ -60,6 +60,10 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => FloatingActionButton(
             onPressed: () {
               showMonthPicker(
+                selectedTExtColor: Colors.black,
+                selectorColor: Colors.yellow,
+                bottomButtonsColors: Colors.yellow,
+                backgroundColor: Colors.yellow,
                 context: context,
                 firstDate: DateTime(DateTime.now().year - 1, 5),
                 lastDate: DateTime(DateTime.now().year + 1, 9),

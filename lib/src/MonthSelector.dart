@@ -7,11 +7,15 @@ import 'package:rxdart/rxdart.dart';
 import 'locale_utils.dart';
 
 class MonthSelector extends StatefulWidget {
+
+  final Color selectorColor;
+  final Color selectedTExtColor;
+
   final ValueChanged<DateTime> onMonthSelected;
   final DateTime? openDate, selectedDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject;
+  upDownButtonEnableStatePublishSubject;
   final Locale? locale;
   const MonthSelector({
     Key? key,
@@ -22,7 +26,7 @@ class MonthSelector extends StatefulWidget {
     required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
-    this.locale,
+    this.locale, required this.selectorColor, required this.selectedTExtColor,
   })  : assert(openDate != null),
         assert(selectedDate != null),
         assert(onMonthSelected != null),
@@ -38,13 +42,13 @@ class MonthSelectorState extends State<MonthSelector> {
 
   @override
   Widget build(BuildContext context) => PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        physics: const AlwaysScrollableScrollPhysics(),
-        onPageChanged: _onPageChange,
-        itemCount: _getPageCount(),
-        itemBuilder: _yearGridBuilder,
-      );
+    controller: _pageController,
+    scrollDirection: Axis.vertical,
+    physics: const AlwaysScrollableScrollPhysics(),
+    onPageChanged: _onPageChange,
+    itemCount: _getPageCount(),
+    itemBuilder: _yearGridBuilder,
+  );
 
   Widget _yearGridBuilder(final BuildContext context, final int page) =>
       GridView.count(
@@ -53,7 +57,7 @@ class MonthSelectorState extends State<MonthSelector> {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => _getMonthButton(
+              (final int index) => _getMonthButton(
               DateTime(
                   widget.firstDate != null
                       ? widget.firstDate!.year + page
@@ -70,16 +74,16 @@ class MonthSelectorState extends State<MonthSelector> {
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
           : null,
       color: date.month == widget.selectedDate!.month &&
-              date.year == widget.selectedDate!.year
-          ? Theme.of(context).accentColor
+          date.year == widget.selectedDate!.year
+          ? widget.selectorColor
           : null,
       textColor: date.month == widget.selectedDate!.month &&
-              date.year == widget.selectedDate!.year
-          ? Theme.of(context).accentTextTheme.button!.color
+          date.year == widget.selectedDate!.year
+          ? widget.selectedTExtColor
           : date.month == DateTime.now().month &&
-                  date.year == DateTime.now().year
-              ? Theme.of(context).accentColor
-              : null,
+          date.year == DateTime.now().year
+          ? widget.selectedTExtColor
+          : null,
       child: Text(
         DateFormat.MMM(locale).format(date),
       ),
