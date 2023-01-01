@@ -69,21 +69,25 @@ class MonthSelectorState extends State<MonthSelector> {
 
   Widget _getMonthButton(final DateTime date, final String locale) {
     final bool isEnabled = _isEnabled(date);
-    return FlatButton(
+    return TextButton(
       onPressed: isEnabled
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
           : null,
-      color: date.month == widget.selectedDate!.month &&
-          date.year == widget.selectedDate!.year
-          ? widget.selectorColor
-          : null,
-      textColor: date.month == widget.selectedDate!.month &&
-          date.year == widget.selectedDate!.year
-          ? widget.selectedTExtColor
-          : date.month == DateTime.now().month &&
-          date.year == DateTime.now().year
-          ? widget.selectedTExtColor
-          : null,
+          style: ButtonStyle(
+            backgroundColor: (date.month == widget.selectedDate!.month &&
+                date.year == widget.selectedDate!.year)
+                ? MaterialStateProperty.all(widget.selectorColor)
+                : null,
+            textStyle: MaterialStateProperty.all(TextStyle(
+              color: date.month == widget.selectedDate!.month &&
+                  date.year == widget.selectedDate!.year
+                  ? widget.selectedTExtColor
+                  : date.month == DateTime.now().month &&
+                  date.year == DateTime.now().year
+                  ? widget.selectedTExtColor
+                  : null,
+            ))
+          ),
       child: Text(
         DateFormat.MMM(locale).format(date),
       ),
