@@ -84,20 +84,17 @@ class MonthSelectorState extends State<MonthSelector> {
                 date.year == widget.selectedDate!.year)
                 ? MaterialStateProperty.all(widget.selectorColor)
                 : null,
-            textStyle: MaterialStateProperty.all(TextStyle(
-              color: date.month == widget.selectedDate!.month &&
-                  date.year == widget.selectedDate!.year
-                  ? widget.selectedTExtColor
-                  : date.month == DateTime.now().month &&
-                  date.year == DateTime.now().year
-                  ? widget.selectedTExtColor
-                  : null,
-            ))
           ),
       child: Text(
         DateFormat.MMM(locale).format(date),
         style: TextStyle(fontSize: widget.fontSize,
-            color: widget.textColor,
+            color: date.month == widget.selectedDate!.month &&
+                date.year == widget.selectedDate!.year
+                ? widget.selectedTExtColor
+                : date.month == DateTime.now().month &&
+                date.year == DateTime.now().year
+                ? Colors.black54
+                : widget.textColor,
             fontFamily: widget.fontFamily),
       ),
     );

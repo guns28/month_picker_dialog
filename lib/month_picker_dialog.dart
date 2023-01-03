@@ -306,6 +306,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
     upDownButtonEnableStatePublishSubject:
     _upDownButtonEnableStatePublishSubject!,
+      textColor: widget.textColor,
+      fontFamily: widget.fontFamily,
+    fontSize: widget.fontSize, selectorColor: widget.selectorColor, selectedTExtColor: widget.selectedTExtColor,
   ));
 
   void _onYearSelected(final int year) =>

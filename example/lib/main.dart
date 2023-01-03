@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => FloatingActionButton(
             onPressed: () {
               showMonthPicker(
-                selectedTExtColor: Colors.black,
+                selectedTExtColor: Colors.white,
                 selectorColor: Colors.yellow,
                 bottomButtonsColors: Colors.yellow,
                 backgroundColor: Colors.yellow,
@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
                 firstDate: DateTime(DateTime.now().year - 1, 5),
                 lastDate: DateTime(DateTime.now().year + 1, 9),
                 initialDate: selectedDate ?? widget.initialDate,
-                locale: Locale("es"),
+                locale: Locale("en"),
                 textColor: Colors.black54,
                 fontSize: 14,
                 fontFamily: ""

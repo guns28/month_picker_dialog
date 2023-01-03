@@ -10,9 +10,14 @@ class YearSelector extends StatefulWidget {
   final ValueChanged<int> onYearSelected;
   final DateTime? initialDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
-  final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject;
+  final PublishSubject<UpDownButtonEnableState>upDownButtonEnableStatePublishSubject;
   final Locale? locale;
+  final Color textColor;
+  final double fontSize;
+  final String fontFamily;
+  final Color selectorColor;
+  final Color selectedTExtColor;
+
   const YearSelector({
     Key? key,
     required DateTime this.initialDate,
@@ -21,7 +26,7 @@ class YearSelector extends StatefulWidget {
     required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
-    this.locale,
+    this.locale, required this.textColor, required this.fontSize, required this.fontFamily, required this.selectorColor, required this.selectedTExtColor,
   })  : assert(initialDate != null),
         assert(onYearSelected != null),
         assert(upDownPageLimitPublishSubject != null),
@@ -60,19 +65,19 @@ class YearSelectorState extends State<YearSelector> {
         page * 12 +
         index;
     final bool isEnabled = _isEnabled(year);
-    return TextButton(
+    return ElevatedButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
         style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
             backgroundColor: year == widget.initialDate!.year
-                ? MaterialStateProperty.all(Theme.of(context).accentColor)
+                ? MaterialStateProperty.all(widget.selectorColor)
                 : null,
-            textStyle: MaterialStateProperty.all(TextStyle(
-              color: year == widget.initialDate!.year
-                  ? Theme.of(context).accentTextTheme.button!.color
-                  : year == DateTime.now().year ? Theme.of(context).accentColor : null
-            ))
+
         ),child: Text(
         DateFormat.y(locale).format(DateTime(year)),
+      style: TextStyle(fontSize: widget.fontSize,
+          color: widget.textColor,
+          fontFamily: widget.fontFamily),
       ),
     );
   }
