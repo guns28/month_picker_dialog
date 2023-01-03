@@ -18,7 +18,9 @@ Future<DateTime?> showMonthPicker({
   required Color selectedTExtColor,
   required Color backgroundColor,
   required Color bottomButtonsColors,
-
+  required Color textColor,
+  required double fontSize,
+  required String fontFamily,
   required BuildContext context,
   required DateTime initialDate,
   DateTime? firstDate,
@@ -43,6 +45,9 @@ Future<DateTime?> showMonthPicker({
       backgroundColor: backgroundColor,
       selectorColor: selectorColor,
       selectedTExtColor: selectedTExtColor,
+      textColor: textColor,
+      fontSize: fontSize,
+        fontFamily : fontFamily
     ),
   );
 }
@@ -52,7 +57,9 @@ class _MonthPickerDialog extends StatefulWidget {
   final Color selectedTExtColor;
   final Color backgroundColor;
   final Color bottomButtonsColors;
-
+  final Color textColor;
+  final double fontSize;
+  final String fontFamily;
   final DateTime? initialDate, firstDate, lastDate;
   final MaterialLocalizations localizations;
   final Locale? locale;
@@ -68,6 +75,9 @@ class _MonthPickerDialog extends StatefulWidget {
     required this.selectedTExtColor,
     required this.backgroundColor,
     required this.bottomButtonsColors,
+    required this.textColor,
+    required this.fontSize,
+    required this.fontFamily,
   }) : super(key: key);
 
   @override
@@ -98,7 +108,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     _upDownButtonEnableStatePublishSubject = new PublishSubject();
 
     _selector = new MonthSelector(
-
+      textColor: widget.textColor,
       key: _monthSelectorState,
       openDate: selectedDate!,
       selectedDate: selectedDate!,
@@ -111,6 +121,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       locale: widget.locale,
       selectorColor: widget.selectorColor,
       selectedTExtColor: widget.selectedTExtColor,
+      fontFamily: widget.fontFamily
     );
   }
 
@@ -311,6 +322,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         locale: widget.locale,
         selectorColor: widget.selectorColor,
         selectedTExtColor: widget.selectedTExtColor,
+        textColor: widget.textColor,
+          fontFamily: widget.fontFamily
       ));
 
   void _onMonthSelected(final DateTime date) => setState(() {
@@ -328,6 +341,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
       locale: widget.locale,
+      textColor: widget.textColor,
+        fontFamily: widget.fontFamily
     );
   });
 

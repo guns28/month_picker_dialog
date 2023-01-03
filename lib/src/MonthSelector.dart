@@ -10,7 +10,9 @@ class MonthSelector extends StatefulWidget {
 
   final Color selectorColor;
   final Color selectedTExtColor;
-
+  final Color textColor;
+  final double fontSize;
+  final String fontFamily;
   final ValueChanged<DateTime> onMonthSelected;
   final DateTime? openDate, selectedDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
@@ -26,7 +28,11 @@ class MonthSelector extends StatefulWidget {
     required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
-    this.locale, required this.selectorColor, required this.selectedTExtColor,
+    this.locale,
+    required this.selectorColor,
+    required this.selectedTExtColor,
+    required this.textColor,
+    this.fontSize  = 16, required this.fontFamily
   })  : assert(openDate != null),
         assert(selectedDate != null),
         assert(onMonthSelected != null),
@@ -90,6 +96,9 @@ class MonthSelectorState extends State<MonthSelector> {
           ),
       child: Text(
         DateFormat.MMM(locale).format(date),
+        style: TextStyle(fontSize: widget.fontSize,
+            color: widget.textColor,
+            fontFamily: widget.fontFamily),
       ),
     );
   }

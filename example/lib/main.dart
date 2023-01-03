@@ -69,6 +69,9 @@ class _MyAppState extends State<MyApp> {
                 lastDate: DateTime(DateTime.now().year + 1, 9),
                 initialDate: selectedDate ?? widget.initialDate,
                 locale: Locale("es"),
+                textColor: Colors.black54,
+                fontSize: 14,
+                fontFamily: ""
               ).then((date) {
                 if (date != null) {
                   setState(() {
